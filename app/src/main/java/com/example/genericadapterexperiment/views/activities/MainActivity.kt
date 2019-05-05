@@ -1,5 +1,6 @@
 package com.example.genericadapterexperiment.views.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -30,14 +31,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         listVM = ViewModelProviders.of(this).get(ListActivityVM::class.java)
         setContentView(R.layout.activity_main)
+        observeViewModel(listVM)
         populateData()
         populateBusData()
 
+
+        color.setOnClickListener {
+            myAdapter?.setItems(listColors)
+        }
+        Buses?.setOnClickListener {
+            myAdapter?.setItems(listBuses)
+        }
+        Users?.setOnClickListener {
+            observeViewModel(listVM)
+        }
+
+        second?.setOnClickListener {
+            startActivity(Intent(this@MainActivity, SecondActivity::class.java))
+        }
+
+        setupAdapter()
     }
 
     override fun onResume() {
         super.onResume()
-        setupAdapter()
+
     }
 
     private fun populateData() {
@@ -110,15 +128,7 @@ class MainActivity : AppCompatActivity() {
                 else -> observeViewModel(listVM)
             }*/
 
-        color.setOnClickListener {
-            myAdapter?.setItems(listColors)
-        }
-        Buses?.setOnClickListener {
-            myAdapter?.setItems(listBuses)
-        }
-        Users?.setOnClickListener {
-            observeViewModel(listVM)
-        }
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = myAdapter

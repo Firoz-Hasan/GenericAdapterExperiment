@@ -7,20 +7,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-abstract class GenericAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+abstract class GenericAdapter<T>(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listItems: List<T> = ArrayList()
     private lateinit var cxt: Context
 
-    constructor(listItems: List<T>) {
+ /*   constructor(listItems: List<T>) {
         this.listItems = listItems
     }
 
     constructor(context: Context) {
         this.cxt = context
         this.listItems = emptyList()
-    }
+    }*/
 
     fun setItems(listItems: List<T>) {
         this.listItems = listItems
